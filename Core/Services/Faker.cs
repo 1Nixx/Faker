@@ -50,7 +50,15 @@ namespace Core.Services
 					return generator.Generate(type, _generatorContext);
 			}
 
-			return null;
+			var creatorService = new ObjectCreatorService(this);
+			var initializeService = new ObjectInitService(this);
+
+			var rowObject = creatorService.CreateObject(type);
+
+			initializeService.InitFields(rowObject, type);
+			initializeService.InitProps(rowObject, type);
+
+			return rowObject;
 		}
 
 		
