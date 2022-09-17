@@ -1,2 +1,14 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿
+
+using Core.Services;
+
+
+
+var faker = new Faker();
+
+var fakerName = faker.Create<List<string>>();
+
+foreach (var item in fakerName)
+{
+	Console.WriteLine(item);
+}

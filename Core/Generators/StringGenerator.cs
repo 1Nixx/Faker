@@ -25,7 +25,7 @@ namespace Core.Generators
 			for (int i = 0; i < stringLength; i++)
 				builder.Append(chars[context.Random.Next(chars.Length)]);
 
-			return builder.ToString();s
+			return builder.ToString();
 		}
 	}
 }
