@@ -1,4 +1,5 @@
 ﻿using Core.Data;
+using Core.Helpers;
 using Core.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -12,6 +13,7 @@ namespace Core.Services
 	{
 		private readonly GeneratorContext _generatorContext;
 		private readonly List<IValueGenerator> _valueGenerators;
+		private readonly IDependencyChecker _cycleDependencyChecker;
 
 		public Faker()
 		{
@@ -20,6 +22,7 @@ namespace Core.Services
 				this
 			);
 
+			_cycleDependencyChecker = new CycleDependencyChecker();
 			_valueGenerators = GetAllGeneratorsFromAssembly();
 		}
 
@@ -44,6 +47,9 @@ namespace Core.Services
 
 		private object Create(Type type)
 		{
+			if (_cycleDependencyChecker.IsOverflowing())
+				throw new InvalidOperationException();
+
 			foreach (var generator in _valueGenerators)
 			{
 				if (generator.CanGenerate(type))
@@ -53,10 +59,14 @@ namespace Core.Services
 			var creatorService = new ObjectCreatorService(this);
 			var initializeService = new ObjectInitService(this);
 
+			_cycleDependencyChecker.AddDependency(type);
+
 			var rowObject = creatorService.CreateObject(type);
 
 			initializeService.InitFields(rowObject, type);
 			initializeService.InitProps(rowObject, type);
+
+			_cycleDependencyChecker.RemoveDependency(type);
 
 			return rowObject;
 		}
