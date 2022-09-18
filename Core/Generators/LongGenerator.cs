@@ -12,7 +12,7 @@ namespace Core.Generators
 
 		public object Generate(Type typeToGenerate, GeneratorContext context)
 		{
-			return context.Random.NextInt64();
+			return context.Random.NextInt64(1, long.MaxValue);
 		}
 	}
 }

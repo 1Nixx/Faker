@@ -1,22 +1,20 @@
-﻿
-
-using Core.Services;
-
-
+﻿using Core.Services;
+using Tests;
 
 var faker = new Faker();
 
-var fakerName = faker.Create<A>();
+var fakerName = faker.Create<C>();
 
 Console.WriteLine();
 
 
-//class User
-//{
-//	//public string Name { get; set; }
-//	public TimeSpan Age { get; set; }
-//	public B a;
-//}
+class User
+{
+	public string Name { get; set; }
+	public int Age { get; set; }
+}
+
+
 
 //class B
 //{
@@ -46,20 +44,20 @@ Console.WriteLine();
 //	}
 
 
+//	//}
+
+//class A
+//{
+//	public B b { get; set; }
 //}
 
-class A
-{
-	public B b{ get; set; }
-}
+//class B
+//{
+//	public C c { get; set; }
+//}
 
-class B
-{
-	public C c{ get; set; }
-}
-
-class C
-{
-	public A a{ get; set; } // циклическая зависимость, 
-                           // может быть на любом уровне вложенности
-}
+//class C
+//{
+//	public A a { get; set; } // циклическая зависимость, 
+//							 // может быть на любом уровне вложенности
+//}

@@ -37,15 +37,15 @@ namespace Core.Services
 
 		public T Create<T>()
 		{
-			return (T)Create(typeof(T));
+			return (T)CreateInstance(typeof(T));
 		}
 
-		object IFaker.Create(Type type)
+		public object Create(Type type)
 		{
-			return Create(type);
+			return CreateInstance(type);
 		}
 
-		private object Create(Type type)
+		private object CreateInstance(Type type)
 		{
 			if (_cycleDependencyChecker.IsOverflowing())
 				throw new InvalidOperationException();

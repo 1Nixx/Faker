@@ -18,9 +18,9 @@ namespace Core.Generators
 		public object Generate(Type typeToGenerate, GeneratorContext context)
 		{
 			return new DateTime(
-				year: context.Random.Next(0, 3000),
+				year: context.Random.Next(1, 3000),
 				month: context.Random.Next(1, 12),
-				day: context.Random.Next(0, 29),
+				day: context.Random.Next(1, 28),
 				hour: context.Random.Next(0, 23),
 				minute: context.Random.Next(0, 59),
 				second: context.Random.Next(0, 59),

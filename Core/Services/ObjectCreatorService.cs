@@ -20,7 +20,8 @@ namespace Core.Services
 		public object CreateObject(Type type)
 		{
 			var typeConstructors = type.GetConstructors()
-				.OrderByDescending(c => c.GetParameters().Length).ToList();
+				.OrderByDescending(c => c.GetParameters().Length)
+				.ToList();
 
 			foreach (var ctor in typeConstructors)
 			{
